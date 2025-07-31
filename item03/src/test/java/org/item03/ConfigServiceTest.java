@@ -19,4 +19,13 @@ public class ConfigServiceTest {
         ConfigService cfs = ConfigService.getInstance();
         assertEquals("", cfs.getProperty("anyKey"));
     }
+
+    @Test
+    void config_setAndGetProperty() {
+        ConfigService cfs = ConfigService.getInstance();
+        cfs.setProperty("url", "https://api.example.com");
+
+        assertEquals("https://api.example.com", 
+            cfs.getProperty("url"));
+    }
 }
