@@ -15,7 +15,7 @@ public class ServiceFactoryDynamicTest {
 
     @Test
     void load_knownImplShouldReturnInstance() {
-        MyService svc = ServiceFactoryDynamic.load("MyServiceImpl");
+        MyService svc = ServiceFactoryDynamic.load("org.item01.MyServiceImpl");
         assertNotNull(svc);
         assertEquals("MyServiceImpl", svc.getClass().getSimpleName());
     }
