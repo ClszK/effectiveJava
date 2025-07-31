@@ -35,8 +35,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-task runExampleMain(type: JavaExec) {
-    group = "run"
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "org.item01.ExampleMain"
-}
