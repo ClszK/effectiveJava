@@ -4,8 +4,7 @@ public class MyServiceImpl implements MyService {
 
     @Override
     public void serve() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'serve'");
+        System.out.println("Serving from MyServiceImpl");
     }
 
 }
