@@ -25,9 +25,9 @@ public class User {
     public static class Builder {
         private String username = "";
         private String email = "";
-        private final int age = 0;
-        private final String address = "";
-        private final boolean newsletterOptIn = false;
+        private int age = 0;
+        private String address = "";
+        private boolean newsletterOptIn = false;
 
         public Builder username(String username) {
             this.username = username;
@@ -36,6 +36,21 @@ public class User {
 
         public Builder email(String email) {
             this.email = email;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+        public Builder newsletterOptIn(
+        boolean newsletterOptIn) {
+            this.newsletterOptIn = newsletterOptIn;
             return this;
         }
 
