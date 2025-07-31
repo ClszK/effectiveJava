@@ -3,6 +3,7 @@ package org.item02;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -48,4 +49,22 @@ public class UserTest {
                 () -> assertEquals("Seoul", user.getAddress()),
                 () -> assertTrue(user.isNewsletterOptIn()));
     }
+
+    @Test
+    void build_withoutUsername_throws() {
+        assertThrows(IllegalArgumentException.class,
+                () -> User.builder()
+                        .email("e@e.com")
+                        .build());
+    }
+
+    @Test
+    void build_withInvalidEmail_throws() {
+        assertThrows(IllegalArgumentException.class,
+                () -> User.builder()
+                        .username("dave")
+                        .email("not-an-email")
+                        .build());
+    }
 }
+

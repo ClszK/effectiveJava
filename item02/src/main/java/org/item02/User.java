@@ -48,13 +48,18 @@ public class User {
             this.address = address;
             return this;
         }
+
         public Builder newsletterOptIn(
-        boolean newsletterOptIn) {
+                boolean newsletterOptIn) {
             this.newsletterOptIn = newsletterOptIn;
             return this;
         }
 
         public User build() {
+            if (username == null || username.isBlank())
+                throw new IllegalArgumentException("username required");
+            if (email == null || !email.contains("@"))
+                throw new IllegalArgumentException("valid email required");
             return new User(this);
         }
     }
