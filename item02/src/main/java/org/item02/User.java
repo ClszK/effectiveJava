@@ -6,10 +6,16 @@ import lombok.Getter;
 public class User {
     private final String username;
     private final String email;
+    private final int age;
+    private final String address;
+    private final boolean newsletterOptIn;
 
     private User(Builder b) {
         this.username = b.username;
         this.email = b.email;
+        this.age = b.age;
+        this.address = b.address;
+        this.newsletterOptIn = b.newsletterOptIn;
     }
 
     public static Builder builder() {
@@ -19,6 +25,9 @@ public class User {
     public static class Builder {
         private String username = "";
         private String email = "";
+        private final int age = 0;
+        private final String address = "";
+        private final boolean newsletterOptIn = false;
 
         public Builder username(String username) {
             this.username = username;

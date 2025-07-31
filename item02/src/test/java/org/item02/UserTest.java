@@ -2,6 +2,7 @@ package org.item02;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,5 @@ public class UserTest {
                 () -> assertEquals(0, user.getAge()),
                 () -> assertEquals("", user.getAddress()),
                 () -> assertFalse(user.isNewsletterOptIn()));
-
     }
 }
