@@ -17,8 +17,8 @@ public class User {
     }
 
     public static class Builder {
-        String username;
-        String email;
+        private String username = "";
+        private String email = "";
 
         public Builder username(String username) {
             this.username = username;
