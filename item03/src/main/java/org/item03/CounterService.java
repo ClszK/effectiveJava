@@ -1,20 +1,19 @@
 package org.item03;
 
-import lombok.Getter;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@Getter
 public class CounterService {
 
     public static final CounterService INSTANCE = new CounterService();
-    private int count = 0;
+    private final AtomicInteger count = new AtomicInteger(0);
 
     private CounterService() { }
 
     public int increase() {
-        return ++count;
+        return count.incrementAndGet();
     }
 
-    void reset() {
-        count = 0;
+    public int getCount() {
+        return count.get();
     }
 }
