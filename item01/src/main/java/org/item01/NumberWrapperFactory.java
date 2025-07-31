@@ -3,6 +3,8 @@ package org.item01;
 public class NumberWrapperFactory {
 
     public static NumberWrapper of(Number n) {
-        return new IntegerWrapper(n.intValue());
+        if (n instanceof Integer)
+            return new IntegerWrapper(n.intValue());
+        return new DoubleWrapper(n.doubleValue());
     }
 }
