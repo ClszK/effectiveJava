@@ -3,6 +3,7 @@ package org.item02;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +31,21 @@ public class UserTest {
                 () -> assertEquals(0, user.getAge()),
                 () -> assertEquals("", user.getAddress()),
                 () -> assertFalse(user.isNewsletterOptIn()));
+    }
+
+    @Test
+    void builder_withOptionalFields() {
+        User user = User.builder()
+                .username("cathy")
+                .email("cathy@example.com")
+                .age(28)
+                .address("Seoul")
+                .newsletterOptIn(true)
+                .build();
+
+        assertAll(
+                () -> assertEquals(28, user.getAge()),
+                () -> assertEquals("Seoul", user.getAddress()),
+                () -> assertTrue(user.isNewsletterOptIn()));
     }
 }
