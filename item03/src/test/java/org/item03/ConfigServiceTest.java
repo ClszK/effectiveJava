@@ -22,10 +22,17 @@ public class ConfigServiceTest {
 
     @Test
     void config_setAndGetProperty() {
-        ConfigService cfs = ConfigService.getInstance();
-        cfs.setProperty("url", "https://api.example.com");
+        ConfigService.getInstance().setProperty("url", "https://api.example.com");
 
         assertEquals("https://api.example.com", 
-            cfs.getProperty("url"));
+            ConfigService.getInstance().getProperty("url"));
+    }
+
+    @Test
+    void config_overwritePropertyReflectsNewValue() {
+        ConfigService.getInstance().setProperty("mode", "dev");
+        ConfigService.getInstance().setProperty("mode", "prod");
+        
+        assertEquals("prod", ConfigService.getInstance().getProperty("mode"));
     }
 }
