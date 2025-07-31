@@ -2,8 +2,10 @@ package org.item01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.Provider.Service;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,16 @@ public class ServiceFactoryTest {
         Service svc = ServiceFactory.create();
         // private inner 클래스라도 getClass().getSimpleName()으로 확인
         assertEquals("ServiceImpl", svc.getClass().getSimpleName());
+    }
+
+    @Test
+    void execute_shouldPrintExecutionMessage() {
+        Service svc = ServiceFactory.create();
+
+        var out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        svc.execute();
+        assertTrue(out.toString().contains("ServiceImpl 실행"));
     }
 
 }
