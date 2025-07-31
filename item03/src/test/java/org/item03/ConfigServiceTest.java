@@ -1,6 +1,5 @@
 package org.item03;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
@@ -13,5 +12,4 @@ public class ConfigServiceTest {
         ConfigService second = ConfigService.getInstance();
         assertSame(first, second);
     }
-
 }
