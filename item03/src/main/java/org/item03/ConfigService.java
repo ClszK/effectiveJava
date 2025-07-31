@@ -17,4 +17,10 @@ public class ConfigService {
     public String getProperty(String key) {
         return configs.getOrDefault(key, "");
     }
+
+    public void setProperty(String key, String value) {
+        configs.put(key, value);
+    }
+
+
 }
