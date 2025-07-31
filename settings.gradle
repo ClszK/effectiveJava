@@ -12,3 +12,5 @@ plugins {
 
 rootProject.name = 'effectiveJava'
 include('item01')
+include('item02')
+include('item03')
