@@ -5,6 +5,8 @@ public class NumberWrapperFactory {
     public static NumberWrapper of(Number n) {
         if (n instanceof Integer)
             return new IntegerWrapper(n.intValue());
-        return new DoubleWrapper(n.doubleValue());
+        else if (n instanceof Double)
+            return new DoubleWrapper(n.doubleValue());
+        throw new IllegalArgumentException();
     }
 }
