@@ -2,6 +2,8 @@ package org.item04;
 
 public class MathUtils {
 
+    private MathUtils() { }
+
     public static boolean isPrime(long n) {
         if (n < 2)
             return false;
