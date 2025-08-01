@@ -1,0 +1,73 @@
+
+task createModule {
+    description 'Creates a new item module.'
+    doLast {
+        def itemNumber = project.properties['itemNumber']
+        if (itemNumber == null) {
+            throw new GradleException("Please provide an item number, e.g., -PitemNumber=06")
+        }
+
+        def moduleName = "item${itemNumber}"
+        def moduleDir = new File(project.projectDir, moduleName)
+
+        if (moduleDir.exists()) {
+            println "Module ${moduleName} already exists."
+            return
+        }
+
+        println "Creating module: ${moduleName}"
+
+        // 1. Create module directory
+        moduleDir.mkdirs()
+
+        // 2. Create src/main/java and src/test/java directories
+        new File(moduleDir, "src/main/java/org/item${itemNumber}").mkdirs()
+        new File(moduleDir, "src/test/java/org/item${itemNumber}").mkdirs()
+
+        // 3. Create build.gradle file from template
+        new File(moduleDir, 'build.gradle').text = """
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    // JUnit 5 & AssertJ for testing
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = "org.${moduleName}.Main"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+"""
+
+        // 4. Add module to settings.gradle
+        def settingsFile = new File(project.projectDir, 'settings.gradle')
+        settingsFile.append("\ninclude('${moduleName}')")
+
+        println "Module ${moduleName} created successfully."
+    }
+}
