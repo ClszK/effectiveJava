@@ -1,10 +1,15 @@
 package org.item04;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -37,5 +42,17 @@ public class MathUtilsTest {
     @MethodSource("compositeProvider")
     void isPrime_compositesShouldFail(long n) {
         assertFalse(MathUtils.isPrime(n), () -> n + "은 합성수로 판별");
+    }
+
+    @Test
+    void allConstructor_shouldBePrivate() throws Exception {
+        Constructor<?>[] ctors = MathUtils.class.getDeclaredConstructors();
+        assertEquals(1, ctors.length);
+
+        for (Constructor<?> ctor : ctors) {
+            assertTrue(
+                    Modifier.isPrivate(ctor.getModifiers()),
+                    "Contructor " + ctor + " should be private");
+        }
     }
 }
