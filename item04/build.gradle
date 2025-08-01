@@ -1,0 +1,37 @@
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    // JUnit 5 & AssertJ for testing
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = "org.item04.Main"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
