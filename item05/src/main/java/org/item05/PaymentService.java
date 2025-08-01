@@ -14,6 +14,8 @@ public class PaymentService {
      * @param amount 청구할 금액(원 단위)
      */
     public void processPayment(int amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("amount는 양수여야 한다.");
         gateway.charge(amount);
     }
 }
