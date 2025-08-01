@@ -1,72 +1,41 @@
 package org.item04;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class MathUtilsTest {
+    static Stream<Long> primeProvider() {
+        return Stream.of(
+                2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L, 29L,
+                100000000003L, 100000000019L, 100000000057L, 100000000069L,
+                100000000183L, 100000000211L, 100000000237L, 12345678929L,
+                100000000253L, 100000000283L, 100000000319L, 100000000363L,
+                100000000367L, 100000000379L, 100000000393L, 100000000403L,
+                100000000411L, 100000000417L, 100000000427L, 100000000447L);
+    }
 
-    @Test
-    void isPrime_with_prime_numbers() {
-        assertTrue(MathUtils.isPrime(2));
-        assertTrue(MathUtils.isPrime(13));
-        assertTrue(MathUtils.isPrime(100000000003));
-        assertTrue(MathUtils.isPrime(100000000019));
-        assertTrue(MathUtils.isPrime(100000000057));
-        assertTrue(MathUtils.isPrime(100000000069));
-        assertTrue(MathUtils.isPrime(100000000081));
-        assertTrue(MathUtils.isPrime(100000000123));
-        assertTrue(MathUtils.isPrime(100000000151));
-        assertTrue(MathUtils.isPrime(100000000169));
-        assertTrue(MathUtils.isPrime(100000000183));
-        assertTrue(MathUtils.isPrime(100000000211));
-        assertTrue(MathUtils.isPrime(100000000237));
-        assertTrue(MathUtils.isPrime(100000000267));
-        assertTrue(MathUtils.isPrime(100000000273));
-        assertTrue(MathUtils.isPrime(100000000297));
-        assertTrue(MathUtils.isPrime(100000000307));
-        assertTrue(MathUtils.isPrime(100000000321));
-        assertTrue(MathUtils.isPrime(100000000333));
-        assertTrue(MathUtils.isPrime(100000000351));
-        assertTrue(MathUtils.isPrime(100000000369));
-        assertTrue(MathUtils.isPrime(100000000391));
-        assertTrue(MathUtils.isPrime(100000000399));
-        assertTrue(MathUtils.isPrime(100000000409));
-        assertTrue(MathUtils.isPrime(100000000423));
-        assertTrue(MathUtils.isPrime(100000000441));
-        assertTrue(MathUtils.isPrime(100000000453));
-        assertTrue(MathUtils.isPrime(100000000471));
-        assertTrue(MathUtils.isPrime(100000000489));
-        assertTrue(MathUtils.isPrime(100000000501));
-        assertTrue(MathUtils.isPrime(100000000513));
-        assertTrue(MathUtils.isPrime(100000000537));
-        assertTrue(MathUtils.isPrime(12345678919));
-        assertTrue(MathUtils.isPrime(12345678929));
-        assertTrue(MathUtils.isPrime(12345678941));
-        assertTrue(MathUtils.isPrime(12345678943));
-        assertTrue(MathUtils.isPrime(12345678947));
-        assertTrue(MathUtils.isPrime(12345678953));
-        assertTrue(MathUtils.isPrime(12345678959));
-        assertTrue(MathUtils.isPrime(12345678961));
-        assertTrue(MathUtils.isPrime(12345678967));
-        assertTrue(MathUtils.isPrime(12345678971));
-        assertTrue(MathUtils.isPrime(12345678973));
-        assertTrue(MathUtils.isPrime(12345678977));
-        assertTrue(MathUtils.isPrime(12345678979));
-        assertTrue(MathUtils.isPrime(12345678983));
-        assertTrue(MathUtils.isPrime(12345678989));
-        assertTrue(MathUtils.isPrime(12345678997));
-        assertTrue(MathUtils.isPrime(12345679003));
-        assertTrue(MathUtils.isPrime(12345679009));
-        assertTrue(MathUtils.isPrime(12345679013));
-        assertTrue(MathUtils.isPrime(12345679021));
-        assertTrue(MathUtils.isPrime(12345679027));
-        assertTrue(MathUtils.isPrime(12345679033));
-        assertTrue(MathUtils.isPrime(12345679039));
-        assertTrue(MathUtils.isPrime(12345679043));
-        assertTrue(MathUtils.isPrime(12345679049));
-        assertTrue(MathUtils.isPrime(12345679051));
-        assertTrue(MathUtils.isPrime(12345679057));
-        assertTrue(MathUtils.isPrime(12345679061));
-        assertTrue(MathUtils.isPrime(12345679067));
-        assertTrue(MathUtils.isPrime(12345679073));
+    static Stream<Long> compositeProvider() {
+        return Stream.of(
+                0L, 1L, 4L, 6L, 8L, 9L, 10L,
+                100000000081L, // 네가 실패한 케이스: 합성수
+                100000000085L, // 예시 합성수
+                12345678918L, 12345678920L);
+    }
+
+    @ParameterizedTest
+    @MethodSource("primeProvider")
+    void isPrime_primesShouldPass(long n) {
+        assertTrue(MathUtils.isPrime(n), () -> n + "은 소수로 판별");
+    }
+
+    @ParameterizedTest
+    @MethodSource("compositeProvider")
+    void isPrime_compositesShouldFail(long n) {
+        assertFalse(MathUtils.isPrime(n), () -> n + "은 합성수로 판별");
     }
 }
