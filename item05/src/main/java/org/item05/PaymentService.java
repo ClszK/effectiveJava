@@ -13,7 +13,9 @@ public class PaymentService {
 
     /**
      * amount 만큼 결제 요청을 위임.
+     * 
      * @param amount 청구할 금액(원 단위)
+     * @thorws IllegalArgumentException amount가 0이하일 때
      */
     public void processPayment(int amount) {
         if (amount <= 0)
