@@ -19,3 +19,4 @@ include('item05')
 include('item6')
 
 include('item04')
+include('item05')
