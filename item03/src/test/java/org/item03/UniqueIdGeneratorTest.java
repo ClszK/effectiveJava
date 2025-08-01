@@ -17,9 +17,9 @@ public class UniqueIdGeneratorTest {
 
     @Test
     void generator_initailAndSubsequentValues() {
-        assertEquals(1, UniqueIdGenerator.INSTANCE.generate());
-        assertEquals(2, UniqueIdGenerator.INSTANCE.generate());
-        assertEquals(3, UniqueIdGenerator.INSTANCE.generate());
+        assertEquals(1L, UniqueIdGenerator.INSTANCE.generate());
+        assertEquals(2L, UniqueIdGenerator.INSTANCE.generate());
+        assertEquals(3L, UniqueIdGenerator.INSTANCE.generate());
 
     }
 }
