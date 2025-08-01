@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import lombok.Getter;
 
+/**
+* 결제 처리(PaymentServcie) 시나리오, 외부 결제 게이트웨이(PaymentGateway)를 생성자 주입
+*/
 class PaymentServiceTest {
     @Test
     void processPayment_withValidAmountInvokesGateway() {
