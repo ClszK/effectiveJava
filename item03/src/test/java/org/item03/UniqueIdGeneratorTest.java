@@ -20,6 +20,5 @@ public class UniqueIdGeneratorTest {
         assertEquals(1L, UniqueIdGenerator.INSTANCE.generate());
         assertEquals(2L, UniqueIdGenerator.INSTANCE.generate());
         assertEquals(3L, UniqueIdGenerator.INSTANCE.generate());
-
     }
 }
