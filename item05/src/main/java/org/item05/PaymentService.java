@@ -1,5 +1,6 @@
 package org.item05;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class PaymentService {
+    @NonNull
     private final PaymentGateway gateway;
 
     /**
