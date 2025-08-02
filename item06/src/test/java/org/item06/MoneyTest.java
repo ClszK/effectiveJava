@@ -57,4 +57,13 @@ class MoneyTest {
         assertThrows(IllegalArgumentException.class,
                 () -> Money.of("USD", -1));
     }
+
+    @Test
+    void of_amount_above_cache_limit_should_return_different_instances() {
+        int limit = Money.MAX_CACHED_AMOUNT;
+        Money m1 = Money.of("USD", limit + 1);
+        Money m2 = Money.of("USD", limit + 1);
+
+        assertNotSame(m1, m2);
+    }
 }
