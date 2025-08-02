@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class Money {
+    public static final int MAX_CACHED_AMOUNT = 1_000;
+
     private static final Map<String, Map<Integer, Money>> CACHE = new ConcurrentHashMap<>();
 
     private final String currency;
@@ -22,8 +24,11 @@ public class Money {
         if (amount < 0)
             throw new IllegalArgumentException("amount는 음수면 안된다.");
 
-        return CACHE
-                .computeIfAbsent(currency, c -> new ConcurrentHashMap<>())
-                .computeIfAbsent(amount, a -> new Money(currency, a));
+        if (amount <= MAX_CACHED_AMOUNT) {
+            return CACHE
+                    .computeIfAbsent(currency, c -> new ConcurrentHashMap<>())
+                    .computeIfAbsent(amount, a -> new Money(currency, a));
+        }
+        return new Money(currency, amount);
     }
 }
