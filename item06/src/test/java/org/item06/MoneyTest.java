@@ -20,5 +20,6 @@ class MoneyTest {
         Money m2 = Money.of("USD", 10);
 
         assertEquals(m1, m2);
+        assertEquals(m1.hashCode(), m2.hashCode());
     }
 }
