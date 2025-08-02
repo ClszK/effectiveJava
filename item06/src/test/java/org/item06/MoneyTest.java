@@ -13,4 +13,12 @@ class MoneyTest {
         assertEquals("USD", m.getCurrency());
         assertEquals(10, m.getAmount());
     }
+
+    @Test
+    void equals_should_be_true_for_same_currency_and_amount() {
+        Money m1 = Money.of("USD", 10);
+        Money m2 = Money.of("USD", 10);
+
+        assertEquals(m1, m2);
+    }
 }
