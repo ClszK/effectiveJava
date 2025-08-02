@@ -17,6 +17,11 @@ public class Money {
     private final int amount;
 
     public static Money of(String currency, int amount) {
+        if (currency == null || currency.isBlank())
+            throw new IllegalArgumentException("currency는 null이거나 비어있으면 안된다.");
+        if (amount < 0)
+            throw new IllegalArgumentException("amount는 음수면 안된다.");
+
         return CACHE
                 .computeIfAbsent(currency, c -> new ConcurrentHashMap<>())
                 .computeIfAbsent(amount, a -> new Money(currency, a));
