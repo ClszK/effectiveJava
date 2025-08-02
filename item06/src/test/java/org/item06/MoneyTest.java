@@ -1,7 +1,10 @@
 package org.item06;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +33,28 @@ class MoneyTest {
         Money m2 = Money.of("USD", 10);
 
         assertSame(m1, m2);
+    }
+
+    @Test
+    void of_sould_handle_multiple_currencies_and_amounts() {
+        Money usd10 = Money.of("USD", 10);
+        Money eur10 = Money.of("EUR", 10);
+
+        assertNotSame(usd10, eur10);
+    }
+
+    @Test
+    void of_null_or_blank_currency_should_throw() {
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class,
+                        () -> Money.of(null, 10)),
+                () -> assertThrows(IllegalArgumentException.class,
+                        () -> Money.of("", 10)));
+    }
+
+    @Test
+    void of_negative_amount_should_throw() {
+        assertThrows(IllegalArgumentException.class,
+                () -> Money.of("USD", -1));
     }
 }
