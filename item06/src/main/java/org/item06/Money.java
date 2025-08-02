@@ -1,33 +1,24 @@
 package org.item06;
 
-import java.util.Objects;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
+@EqualsAndHashCode
 @RequiredArgsConstructor
 public class Money {
+    private static final Map<String, Map<Integer, Money>> CACHE = new ConcurrentHashMap<>();
+
     private final String currency;
     private final int amount;
 
     public static Money of(String currency, int amount) {
-        return new Money(currency, amount);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Money))
-            return false;
-        Money that = (Money) o;
-        return amount == that.amount
-                && currency.equals(that.currency);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(currency, amount);
+        return CACHE
+                .computeIfAbsent(currency, c -> new ConcurrentHashMap<>())
+                .computeIfAbsent(amount, a -> new Money(currency, a));
     }
 }
