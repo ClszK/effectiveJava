@@ -2,6 +2,8 @@ package org.item07;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
 
@@ -33,5 +35,24 @@ class StackTest {
         Object[] elems = (Object[]) elementsField.get(stack);
 
         assertNull(elems[1], "pop 후 obsolete 참조를 null 처리해야 한다");
+    }
+
+    @Test
+    void pop_on_empty_stack_should_throw() {
+        Stack<String> stack = new Stack<>();
+        assertThrows(IllegalArgumentException.class, stack::pop);
+    }
+
+    @Test
+    void push_beyond_initial_capacity_should_expand_array() throws Exception {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < 20; ++i)
+            stack.push(i);
+
+        Field elementsField = Stack.class.getDeclaredField("elements");
+        elementsField.setAccessible(true);
+        Object[] elems = (Object[]) elementsField.get(stack);
+
+        assertTrue(elems.length >= 20, "용량이 자동 확장되어야 함");
     }
 }
