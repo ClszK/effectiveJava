@@ -2,6 +2,7 @@ package org.item04;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -53,5 +54,12 @@ public class MathUtilsTest {
                     Modifier.isPrivate(ctor.getModifiers()),
                     "Contructor " + ctor + " should be private");
         }
+    }
+
+    @Test
+    void instantiation_viaReflectionThrowsAssertionError() throws Exception {
+        Constructor<MathUtils> ctor = MathUtils.class.getDeclaredConstructor();
+        ctor.setAccessible(true);
+        assertThrows(AssertionError.class, () -> ctor.newInstance());
     }
 }
