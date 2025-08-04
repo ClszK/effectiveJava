@@ -10,7 +10,9 @@ public class Stack<E> {
 
     @SuppressWarnings("unchecked")
     public E pop() {
-        return (E) elements[--size];
+        Object elem = elements[--size];
+        elements[size] = null;
+        return (E) elem;
     }
 
 }
